@@ -54,3 +54,8 @@ CREATE TABLE IF NOT EXISTS items (
     order_id TEXT
         REFERENCES orders(order_uid) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
+
+CREATE TABLE order (
+    order_uid TEXT PRIMARY KEY,
+    data JSON NOT NULL
+)
