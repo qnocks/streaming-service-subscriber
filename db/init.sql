@@ -51,5 +51,6 @@ CREATE TABLE IF NOT EXISTS items (
     nm_id INT NOT NULL,
     brand TEXT NOT NULL,
     status INT NOT NULL,
-    order_id TEXT REFERENCES orders(order_uid) ON DELETE RESTRICT ON UPDATE RESTRICT
+    order_id TEXT
+        REFERENCES orders(order_uid) ON DELETE RESTRICT ON UPDATE RESTRICT
 );
