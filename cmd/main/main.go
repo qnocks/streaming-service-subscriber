@@ -25,14 +25,14 @@ func main() {
 
 	sc, _ := stan.Connect("test-cluster", "test", stan.NatsURL("0.0.0.0:4222"))
 
-	var order *model.Order
+	var order model.Order
 	var data []byte
 
 	sub, _ := sc.Subscribe("foo", func(msg *stan.Msg) {
 		fmt.Printf("Recived %s\n", msg)
 		data = msg.Data
-		order = new(model.Order)
-		if err := json.Unmarshal(msg.Data, order); err != nil {
+		order = *new(model.Order)
+		if err := json.Unmarshal(msg.Data, &order); err != nil {
 			fmt.Printf("Error during convert recieved bytes[] to order: %s\n", err.Error())
 		}
 
@@ -46,7 +46,7 @@ func main() {
 		return
 	}
 
-	//	===========================================================
+	//	===============================================================
 
 	db, err := repository.NewDB(repository.Config{
 		Host:     viper.GetString("db.host"),
@@ -69,6 +69,17 @@ func main() {
 		fmt.Printf("Error during execution sql query: %s", queryRow.Err())
 		return
 	}
+
+	//	===============================================================
+
+	repo := repository.NewRepository()
+
+	repo.LoadBackup(db)
+
+	repo.Save(order)
+
+	fmt.Println("LOCAL CACHE:")
+	fmt.Println(repo.GetAll())
 
 	//query := fmt.Sprintf("INSERT INTO %s ("+
 	//	"order_uid,"+
@@ -102,7 +113,6 @@ func main() {
 	//}
 	//
 	//fmt.Println(row)
-
 }
 
 func initConfig() error {

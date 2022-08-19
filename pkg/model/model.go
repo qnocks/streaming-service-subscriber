@@ -1,10 +1,10 @@
 package model
 
 type Order struct {
-	OrderUid          string   `json:"order_uid" faker:"len=20"`
-	TrackNumber       string   `json:"track_number" faker:"len=20"`
-	Entry             string   `json:"entry" faker:"oneof: WBIL"`
-	Delivery          Delivery `json:"delivery"`
+	OrderUid          string   `json:"order_uid" faker:"len=20" db:"order_uid"`
+	TrackNumber       string   `json:"track_number" faker:"len=20" db:"track_number"`
+	Entry             string   `json:"entry" faker:"oneof: WBIL" db:"entry"`
+	Delivery          Delivery `json:"delivery" db:"delivery"`
 	Payment           Payment  `json:"payment"`
 	Items             []Item   `json:"items"`
 	Locale            string   `json:"locale" faker:"oneof: en"`
