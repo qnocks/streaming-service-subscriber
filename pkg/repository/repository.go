@@ -29,6 +29,15 @@ func (r Repository) GetAll() []model.Order {
 	return r.orders
 }
 
+func (r Repository) GetByID(id string) *model.Order {
+	for _, o := range r.orders {
+		if o.OrderUid == id {
+			return &o
+		}
+	}
+	return nil
+}
+
 func (r *Repository) LoadBackup(db *sqlx.DB) {
 	const orderTable = "order"
 	rows, err := db.Queryx(fmt.Sprintf("SELECT * FROM \"%s\"", orderTable))

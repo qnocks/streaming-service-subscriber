@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"github.com/nats-io/stan.go"
@@ -10,6 +11,7 @@ import (
 	"l0-project/pkg/model"
 	"l0-project/pkg/repository"
 	"log"
+	"net/http"
 	"os"
 	"time"
 )
@@ -28,7 +30,7 @@ func main() {
 	var order model.Order
 	var data []byte
 
-	sub, _ := sc.Subscribe("foo", func(msg *stan.Msg) {
+	_, _ = sc.Subscribe("foo", func(msg *stan.Msg) {
 		fmt.Printf("Recived %s\n", msg)
 		data = msg.Data
 		order = *new(model.Order)
@@ -42,9 +44,9 @@ func main() {
 
 	time.Sleep(1 * time.Second)
 
-	if err := sub.Unsubscribe(); err != nil {
-		return
-	}
+	//if err := sub.Unsubscribe(); err != nil {
+	//	return
+	//}
 
 	//	===============================================================
 
@@ -113,6 +115,19 @@ func main() {
 	//}
 	//
 	//fmt.Println(row)
+
+	router := gin.Default()
+	router.GET("api/orders/:id", func(ctx *gin.Context) {
+		id := ctx.Param("id")
+		ctx.JSON(http.StatusOK, repo.GetByID(id))
+	})
+	router.GET("api/orders", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, repo.GetAll())
+	})
+
+	if err = router.Run("localhost:8080"); err != nil {
+		log.Fatalf("Error during running server: %s\n", err.Error())
+	}
 }
 
 func initConfig() error {
