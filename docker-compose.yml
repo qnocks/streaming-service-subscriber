@@ -3,10 +3,8 @@ services:
   postgres:
     container_name: wildberries-postgres
     image: postgres
-    environment:
-      POSTGRES_DB: "wildberries"
-      POSTGRES_USER: "wildberries"
-      POSTGRES_PASSWORD: "root"
+    env_file:
+      - db.env
     ports:
       - "5432:5432"
     volumes:

@@ -5,11 +5,13 @@ import (
 	"fmt"
 	"github.com/bxcodec/faker/v3"
 	"github.com/nats-io/stan.go"
-	"l0-project/pkg/model"
+	"l0-project/internal/model"
+	"os"
 )
 
 func main() {
-	sc, err := stan.Connect("test-cluster", "client-id", stan.NatsURL("0.0.0.0:4222"))
+	natsConfig := os.Args[1:]
+	sc, err := stan.Connect(natsConfig[0], natsConfig[1], stan.NatsURL(natsConfig[2]))
 	if err != nil {
 		fmt.Printf("Error during STAN connection: %s\n", err.Error())
 		return
@@ -27,14 +29,17 @@ func main() {
 
 	bytes, err := json.Marshal(order)
 	if err != nil {
-		fmt.Printf("Error during faking convert order to bytes[]: %s\n", err.Error())
+		fmt.Printf("Error faking convert order to bytes[]: %s\n", err.Error())
 		return
 	}
 
-	_ = sc.Publish("foo", bytes)
+	err = sc.Publish(natsConfig[3], bytes)
+	if err != nil {
+		fmt.Printf("Error publishing Order to nats: %s\n", err.Error())
+	}
 
 	if err := sc.Close(); err != nil {
-		fmt.Printf("Error during faking convert order to bytes[]: %s\n", err.Error())
+		fmt.Printf("Error faking convert order to bytes[]: %s\n", err.Error())
 		return
 	}
 }
