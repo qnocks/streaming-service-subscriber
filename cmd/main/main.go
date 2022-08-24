@@ -51,6 +51,7 @@ func main() {
 
 	h := new(handler.Handler)
 	h.InitRoutes(c)
+	h.InitUI()
 
 	server := new(internal.Server)
 	err = server.Run(viper.GetString("server.port"), h.Router)

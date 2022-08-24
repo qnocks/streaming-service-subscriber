@@ -24,3 +24,12 @@ func (h *Handler) InitRoutes(c *cache.Cache) {
 		})
 	}
 }
+
+func (h *Handler) InitUI() {
+	h.Router.Static("/assets", "./assets")
+	h.Router.LoadHTMLGlob("static/*.html")
+
+	h.Router.GET("/", func(ctx *gin.Context) {
+		ctx.HTML(http.StatusOK, "index.html", nil)
+	})
+}
