@@ -3,13 +3,18 @@ services:
   postgres:
     container_name: wildberries-postgres
     image: postgres
-    environment:
-      POSTGRES_DB: "wildberries"
-      POSTGRES_USER: "wildberries"
-      POSTGRES_PASSWORD: "root"
+    env_file:
+      - db.env
     ports:
       - "5432:5432"
     volumes:
       - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./db/pgdata:/var/lib/postgresql/data
+
+  nats-streaming:
+    image: nats-streaming
+    container_name: nats_streaming
+    ports:
+      - "4222:4222"
+      - "8222:8222"
 
