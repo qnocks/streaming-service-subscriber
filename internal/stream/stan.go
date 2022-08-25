@@ -9,7 +9,6 @@ import (
 	"l0-project/internal/model"
 	"l0-project/internal/repository"
 	"log"
-	"time"
 )
 
 func Connect(clusterID, clientID, natsURL string) (stan.Conn, error) {
@@ -36,9 +35,6 @@ func (s STAN) Listen(subject string) {
 	if err != nil {
 		log.Fatalf("Error listening to streaming connection: %s\n", err.Error())
 	}
-
-	// TODO: do we need it?
-	time.Sleep(1 * time.Second)
 }
 
 func (s STAN) handleSubscribe(msg *stan.Msg) {

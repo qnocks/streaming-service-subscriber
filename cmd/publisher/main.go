@@ -25,8 +25,6 @@ func main() {
 		return
 	}
 
-	fmt.Printf("%+v", order)
-
 	bytes, err := json.Marshal(order)
 	if err != nil {
 		fmt.Printf("Error faking convert order to bytes[]: %s\n", err.Error())
@@ -37,6 +35,8 @@ func main() {
 	if err != nil {
 		fmt.Printf("Error publishing Order to nats: %s\n", err.Error())
 	}
+
+	fmt.Printf("Published order: %+v", order)
 
 	if err := sc.Close(); err != nil {
 		fmt.Printf("Error faking convert order to bytes[]: %s\n", err.Error())

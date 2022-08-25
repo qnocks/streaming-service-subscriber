@@ -35,9 +35,9 @@ type Payment struct {
 	Amount       int64  `json:"amount" faker:"boundary_start=100, boundary_end=10000" validate:"required"`
 	PaymentDt    int64  `json:"payment_dt" faker:"unix_time" validate:"required"`
 	Bank         string `json:"bank" faker:"word" validate:"required"`
-	DeliveryCost int64  `json:"delivery_cost" faker:"boundary_start=100, boundary_end=10000" validate:"required,gt=0"`
-	GoodsTotal   int64  `json:"goods_total" faker:"boundary_start=1, boundary_end=100" validate:"required,gt=0"`
-	CustomFee    int64  `json:"custom_fee" faker:"boundary_start=0, boundary_end=10000" validate:"required,gte=0"`
+	DeliveryCost int64  `json:"delivery_cost" faker:"boundary_start=100, boundary_end=1000" validate:"required,gt=0"`
+	GoodsTotal   int64  `json:"goods_total" faker:"boundary_start=1, boundary_end=1000" validate:"required,gt=0"`
+	CustomFee    int64  `json:"custom_fee" faker:"boundary_start=0, boundary_end=1000" validate:"required,gte=0"`
 }
 
 type Item struct {
@@ -48,8 +48,8 @@ type Item struct {
 	Name        string `json:"name" faker:"first_name" validate:"required"`
 	Sale        int64  `json:"sale" faker:"boundary_start=0, boundary_end=100" validate:"required,gte=0"`
 	Size        string `json:"size" faker:"oneof: 1, 2, 5" validate:"required"`
-	TotalPrice  int64  `json:"total_price" faker:"boundary_start=50, boundary_end=10000" validate:"required,gte=0"`
-	NmID        int64  `json:"nm_id" faker:"boundary_start=1000, boundary_end=1000000" validate:"required"`
+	TotalPrice  int64  `json:"total_price" faker:"boundary_start=100, boundary_end=10000" validate:"required,gte=0"`
+	NmID        int64  `json:"nm_id" faker:"boundary_start=10000, boundary_end=1000000" validate:"required"`
 	Brand       string `json:"brand" faker:"word" validate:"required"`
 	Status      int64  `json:"status" faker:"boundary_start=0, boundary_end=500" validate:"required"`
 }
