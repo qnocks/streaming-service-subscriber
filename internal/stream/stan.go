@@ -3,6 +3,7 @@ package stream
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/go-playground/validator/v10"
 	"github.com/nats-io/stan.go"
 	"l0-project/internal/cache"
 	"l0-project/internal/model"
@@ -45,6 +46,13 @@ func (s STAN) handleSubscribe(msg *stan.Msg) {
 	var order = *new(model.Order)
 	if err := json.Unmarshal(msg.Data, &order); err != nil {
 		fmt.Printf("Error converting streamed bytes[] to order: %s\n", err.Error())
+		return
+	}
+
+	validate := validator.New()
+	err := validate.Struct(order)
+	if err != nil {
+		fmt.Printf("Error validating streamed order: %s\n", err.Error())
 		return
 	}
 
