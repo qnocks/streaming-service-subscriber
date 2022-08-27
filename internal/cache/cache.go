@@ -28,10 +28,6 @@ func (c *Cache) Save(o model.Order) {
 	c.Orders = append(c.Orders, o)
 }
 
-func (c Cache) GetAllOrders() []model.Order {
-	return c.Orders
-}
-
 func (c Cache) GetOrderByID(id string) *model.Order {
 	for _, o := range c.Orders {
 		if o.OrderUid == id {

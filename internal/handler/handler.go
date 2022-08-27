@@ -1,13 +1,22 @@
 package handler
 
 import (
+	"fmt"
 	"github.com/gin-gonic/gin"
 	"l0-project/internal/cache"
 	"net/http"
+	"time"
 )
 
 type Handler struct {
 	Router *gin.Engine
+}
+
+type errorResponse struct {
+	Status    int64  `json:"status"`
+	Error     string `json:"error"`
+	Message   string `json:"message"`
+	Timestamp int64  `json:"timestamp"`
 }
 
 func (h *Handler) InitRoutes(c *cache.Cache) {
@@ -15,12 +24,20 @@ func (h *Handler) InitRoutes(c *cache.Cache) {
 
 	orders := h.Router.Group("/api/orders")
 	{
-		orders.GET("/", func(ctx *gin.Context) {
-			ctx.JSON(http.StatusOK, c.GetAllOrders())
-		})
 		orders.GET("/:id", func(ctx *gin.Context) {
 			id := ctx.Param("id")
-			ctx.JSON(http.StatusOK, c.GetOrderByID(id))
+			order := c.GetOrderByID(id)
+
+			if order == nil {
+				ctx.JSON(http.StatusNotFound, errorResponse{
+					Status:    http.StatusNotFound,
+					Error:     http.StatusText(http.StatusNotFound),
+					Message:   fmt.Sprintf("Order with id: %s not found", id),
+					Timestamp: time.Now().Unix(),
+				})
+			} else {
+				ctx.JSON(http.StatusOK, order)
+			}
 		})
 	}
 }

@@ -11,6 +11,8 @@ require (
 )
 
 require (
+	github.com/c2h5oh/datasize v0.0.0-20220606134207-859f65c6625b // indirect
+	github.com/davecgh/go-spew v1.1.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.8.1 // indirect
@@ -20,10 +22,13 @@ require (
 	github.com/goccy/go-json v0.9.11 // indirect
 	github.com/gogo/protobuf v1.3.2 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
+	github.com/influxdata/tdigest v0.0.1 // indirect
 	github.com/joho/godotenv v1.4.0 // indirect
+	github.com/josharian/intern v1.0.0 // indirect
 	github.com/json-iterator/go v1.1.12 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/magiconair/properties v1.8.6 // indirect
+	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-isatty v0.0.16 // indirect
 	github.com/mitchellh/mapstructure v1.5.0 // indirect
 	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
@@ -35,15 +40,20 @@ require (
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.0.3 // indirect
+	github.com/pmezard/go-difflib v1.0.0 // indirect
 	github.com/rogpeppe/go-internal v1.8.0 // indirect
 	github.com/spf13/afero v1.8.2 // indirect
 	github.com/spf13/cast v1.5.0 // indirect
 	github.com/spf13/jwalterweatherman v1.1.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/stretchr/objx v0.4.0 // indirect
+	github.com/stretchr/testify v1.8.0 // indirect
 	github.com/subosito/gotenv v1.3.0 // indirect
+	github.com/tsenart/go-tsz v0.0.0-20180814235614-0bd30b3df1c3 // indirect
+	github.com/tsenart/vegeta v12.7.0+incompatible // indirect
 	github.com/ugorji/go/codec v1.2.7 // indirect
 	golang.org/x/crypto v0.0.0-20220817201139-bc19a97f63c8 // indirect
-	golang.org/x/net v0.0.0-20220812174116-3211cb980234 // indirect
+	golang.org/x/net v0.0.0-20220826154423-83b083e8dc8b // indirect
 	golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect
