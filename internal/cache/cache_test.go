@@ -7,18 +7,13 @@ import (
 	"testing"
 )
 
-func newCacheInstance() *Cache {
-	return &Cache{Orders: nil}
-}
-
 func TestCache_Save(t *testing.T) {
 	const expectedOrdersSize = 1
 	const expectedOrderUid = "test"
-	cache := newCacheInstance()
-	o := new(model.Order)
-	o.OrderUid = "test"
+	cache := &Cache{Orders: nil}
+	o := model.Order{OrderUid: expectedOrderUid}
 
-	cache.Save(*o)
+	cache.Save(o)
 
 	assert.Equal(t, len(cache.Orders), expectedOrdersSize,
 		fmt.Sprintf("FAILED Save(). Expected: %d, Got: %d", expectedOrdersSize, len(cache.Orders)))
@@ -34,7 +29,7 @@ func TestCache_GetOrderByID(t *testing.T) {
 		{OrderUid: "3"},
 	}
 
-	cache := newCacheInstance()
+	cache := &Cache{Orders: nil}
 	cache.Save(orders[0])
 	cache.Save(orders[1])
 	cache.Save(orders[2])
