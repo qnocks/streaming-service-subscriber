@@ -28,7 +28,7 @@ func NewOrderRepository(db *sqlx.DB) *OrderRepository {
 func (r OrderRepository) Save(orderEntity OrderEntity) {
 	queryRow := r.DB.QueryRow(insertOrders, orderEntity.OrderUID, orderEntity.Data)
 	if queryRow.Err() != nil {
-		fmt.Printf("Error executing %s: %s", insertOrders, queryRow.Err())
+		fmt.Printf("Error executing %s: %s\n", insertOrders, queryRow.Err())
 		return
 	}
 }
