@@ -12,9 +12,14 @@ import (
 	"l0-project/pkg/database/postgres"
 	"log"
 	"os"
+	"os/signal"
+	"syscall"
 )
 
 func main() {
+	done := make(chan os.Signal, 1)
+	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+
 	if err := initConfig(); err != nil {
 		log.Fatalf("Error initializing config: %s\n", err.Error())
 	}
@@ -54,10 +59,16 @@ func main() {
 	h.InitUI()
 
 	server := new(internal.Server)
-	err = server.Run(viper.GetString("server.port"), h.Router)
-	if err != nil {
-		log.Fatalf("Error running http server: %s\n", err.Error())
-	}
+
+	go func() {
+		err = server.Run(viper.GetString("server.port"), h.Router)
+		if err != nil {
+			log.Fatalf("Error running http server: %s\n", err.Error())
+		}
+	}()
+
+	<-done
+	log.Printf("Server stopped\n")
 }
 
 func initConfig() error {
