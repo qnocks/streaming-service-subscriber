@@ -8,7 +8,7 @@ It exposes some API to get order by ID and simple frontend
 
 [More information](docs/L0.pdf) 
 
-## Use
+## Usage
 
 Create `app.env` `db.env` files with following configurations:
 
